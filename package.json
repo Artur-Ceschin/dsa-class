@@ -1,0 +1,19 @@
+{
+  "name": "daily-algo",
+  "version": "1.0.0",
+  "description": "A collection of famous LeetCode problems solved in JavaScript and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "node",
+    "dev": "node --watch"
+  },
+  "keywords": [
+    "algorithms",
+    "data-structures",
+    "leetcode",
+    "javascript",
+    "typescript"
+  ],
+  "author": "Artur Ceschin",
+  "license": "MIT"
+}
