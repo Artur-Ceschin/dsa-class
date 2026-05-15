@@ -31,5 +31,26 @@ function cloneGraph(graph) {
 }
 
 
+function cloneGraph2(graph) {
+  const clone = new Map()
+  function dfs(node) {
+
+    if(clone.has(node)) return clone.get(node)
+    const newNode = new Node(node.val)
+
+    clone.set(node, newNode)
+      
+    for(const neighbor of node.neighbors) {
+      const neighborClone = dfs(neighbor)
+      newNode.neighbors.push(neighborClone)
+    }
+
+    return newNode
+
+  }
+
+  return dfs(graph)
+}
+
 
 console.log(cloneGraph(node1))

@@ -39,8 +39,65 @@ function createCoursesRelation(prerequisites, numCourses) {
   return courses
 }
 
-  const prerequisites = [[1,0]]                                                                                                   
-  const numCourses = 2
+
+function courseSchedule2(prerequisites, numCourses) {
+
+  const visited = new Set()
+  const visiting = new Set()
+
+  // const positions 
+
+  //we need to create an adjancet list for sure
+
+  const list = createAdjacencyList(prerequisites, numCourses)
+
+  for(let i = 0; i < numCourses; i++) {
+    if(dfs(i) === false) return false
+  }
+
+  function dfs(course) {
+    if(visiting.has(course)) return false
+    if(visited.has(course)) return true
+
+    visiting.add(course)
+    for(const neighbor of list[course]) {
+
+      if(dfs(neighbor) === false) {
+        return false
+      }
+    }
+    visiting.delete(course)
+    visited.add(course)
+    return true
+  }
+
+  return true
+}
+
+function createAdjacencyList(prerequisites, numCourses) {
+
+  const adjacency = Array.from({length: numCourses}, () => [])
+
+  for(let i = 0; i < prerequisites.length; i++) {
+    
+    const [course, preq] = prerequisites[i]
+    adjacency[preq].push(course)
+  }
+
+  return adjacency
+}
+
+// const prerequisites = [[1,0]]                                                                                                   
+// const numCourses = 2
+
+const numCourses = 4
+
+const prerequisites = [
+  [1,0],
+  [1,2],
+  [3,1],
+  [3,2]
+]
 
 
-console.log(courseSchedule(prerequisites, numCourses))
+console.log(courseSchedule2(prerequisites, numCourses))
