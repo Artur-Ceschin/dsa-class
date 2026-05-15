@@ -11,12 +11,6 @@
 // Question: How many minutes until ALL oranges are rotten?
 // If impossible, return -1.
 
-const grid = [
-  [2, 1, 1],
-  [1, 1, 0],
-  [0, 1, 1]
-];
-
 
 const grid2 = [
   [2, 1, 1],
@@ -80,4 +74,71 @@ function orangesRotting(grid) {
 //O(m * n)
 //O(m * n)
 
-console.log(orangesRotting(grid))
+
+function orangesRotting2(grid) {
+
+  let minutes = 0
+
+
+  const positions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+  const row = grid.length
+  const column = grid[0].length
+
+  const queue = []
+  let totalFresh = 0
+
+  
+  for(let r = 0; r < row; r++) {
+
+    for(let c = 0; c < column; c++) {
+      const current = grid[r][c]
+
+      if(current === 2) {
+        queue.push([r, c])
+      } else if(current === 1) {
+        totalFresh++
+      }
+    }
+  }
+
+  while(queue.length > 0) {
+    const size = queue.length
+    let infected = false
+    for(let i = 0; i < size; i++) {
+      const [dRow, dCol] = queue.shift()
+        for(const position of positions) {
+        const nextRow = dRow + position[0]
+        const nextCol = dCol + position[1]
+
+        if(nextRow < 0 || nextRow >= row || nextCol < 0 || nextCol >= column) continue
+
+        const current = grid[nextRow][nextCol]
+
+        if(current === 1) {
+          grid[nextRow][nextCol] = 2
+          totalFresh--
+          queue.push([nextRow, nextCol])
+          infected = true
+        }
+      }
+    }
+
+    if(infected) {
+      minutes++
+    }
+
+    }
+
+  return totalFresh > 0 ? -1 : minutes
+
+}
+
+
+const grid = [
+  [2, 1, 1],
+  [1, 1, 0],
+  [0, 1, 1]
+];
+
+
+console.log(orangesRotting2(grid))
