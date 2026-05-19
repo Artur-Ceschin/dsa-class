@@ -8,8 +8,6 @@ function numCourseSchedule2(numCourses, prerequisites) {
   const visited = new Set()
 
   const adjacentList = createAdjacentList(numCourses, prerequisites)
-
-
   for(let i = 0; i < numCourses; i++) {
    if(dfs(i) === false) {
       return []
