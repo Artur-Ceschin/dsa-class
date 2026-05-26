@@ -5,9 +5,8 @@ function longestConsecutiveSequence(nums) {
   const set = new Set(nums)
   let longestSequence = 0
   
-  for(let i = 0; i < nums.length; i++) {
+  for(const current of set) {
 
-    const current = nums[i]
 
     // {100, 4, 200, 1, 3, 2}
     if(!set.has(current - 1)) {
